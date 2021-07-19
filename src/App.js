@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import { Component } from 'react';
+// import { FaArrowRight } from 'react-icons/fa';
+// import { FaArrowLeft } from 'react-icons/fa';
+// import {BrowserRouter as Router, Route} from "react-router-dom";
+import NotePad from './Container/Notepad'
+import LeftMargin from './Components/LeftMargin';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const applicationStyle = {
+  backgroundColor: 'fuchsia',
+  height: '900px',
+  width: '1000px',
+  marginLeft: '30%',
+  marginTop: '25px',
+  border:'solid',
+  borderColor:'yellow'
+}
+
+class App extends Component {
+  render() {
+    return (
+      <div style={applicationStyle}>
+        <NotePad />
+        <LeftMargin />
+        
+      </div>
+    )
+  }
 }
 
 export default App;
