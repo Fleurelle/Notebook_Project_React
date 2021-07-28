@@ -1,27 +1,47 @@
 import { Component } from 'react';
-// import { FaArrowRight } from 'react-icons/fa';
-// import { FaArrowLeft } from 'react-icons/fa';
-// import {BrowserRouter as Router, Route} from "react-router-dom";
+import "bootswatch/dist/quartz/bootstrap.min.css";
+import { Route, Switch } from 'react-router-dom';
+import Navpane from './Components/Navpane';
+import Home from './Components/Home';
 import NotePad from './Container/Notepad'
-import LeftMargin from './Components/LeftMargin';
+import Notes from './Components/Notes';
+import Quotes from './Components/Quotes';
+
 
 const applicationStyle = {
-  backgroundColor: 'fuchsia',
-  height: '900px',
+  backgroundColor: 'pink',
+  height: '700px',
   width: '1000px',
-  marginLeft: '30%',
+  marginLeft: '20%',
   marginTop: '25px',
-  border:'solid',
-  borderColor:'yellow'
+  border: 'solid',
+  borderColor: 'yellow'
 }
 
 class App extends Component {
   render() {
     return (
       <div style={applicationStyle}>
-        <NotePad />
-        <LeftMargin />
-        
+        <Navpane />
+        <Switch>
+
+          <Route exact path="/">
+            <Home />
+          </Route>
+
+          <Route path="/Notepad">
+            <NotePad />
+          </Route>
+
+          <Route path="/Notes">
+            <Notes />
+          </Route>
+
+          <Route path="/Quotes">
+            <Quotes />
+          </Route>
+
+        </Switch>
       </div>
     )
   }

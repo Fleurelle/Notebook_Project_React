@@ -1,44 +1,78 @@
 import React from 'react'
 
-//right side of the notepad -may not need this but let's keep it for now
-const formStyle = {
-    width: '750px',
-    height:'900px',
-    backgroundColor: 'pink',
-    marginLeft: '250px'
-}
-
 //lined area of notepad
-const textAreaStyle ={
-    height:'890px',
+const textAreaStyle = {
+    marginTop: '10px',
+    marginLeft: '15%',
+    height: '500px',
     width: '743px',
     resize: 'none',
     lineHeight: '25px', //distance from blue line to blue line
     background: 'repeating-linear-gradient(pink 0px, white 24px, blue 25px)'
+
 }
 
-//submit button
+//save button
 const submitStyle = {
-    marginLeft:'700px'
-    
+    marginLeft: '50%',
+    marginTop: 'auto'
+
 }
 
+//title box
+const titleStyle = {
+    width: '740px',
+    marginTop: '35px',
+    marginLeft: '15%'
+}
 class NotePad extends React.Component {
-
-    fetchFunction = () =>{
-        console.log("July 18, 2021")
+    constructor() {
+        super();
+        this.state = {
+            title: '',
+            text: '',
+            submittedData:[]
+        }
     }
 
-    componentDidMount(){
-        this.fetchFunction()
+    //need a handleChange function -to update state based on title and text values
+    handleTitleChange =(event)=>{
+        this.setState({
+            title: event.target.value
+        })
+
     }
+
+    handleTextChange =(event)=>{
+        this.setState({
+            text: event.target.value
+        })
+
+    }
+
+    //submitting the controlled form
+    handleSubmit =(e) => {
+        e.preventDefault() 
+
+        let formData = {
+            title:this.state.title,
+            text:this.state.text
+        }
+        
+        let dataArray = this.state.submittedData.concat(formData)
+        this.setState({
+            submittedData:dataArray
+        })
+    }
+
 
     render() {
         return (
-            <div style={formStyle}>
-                <form >
-                    <textarea style={textAreaStyle} />
-                    <input type="submit" style={submitStyle} value="SAVE"/>
+            <div className="notepad-main" >
+                <form className="notepad-notetaking-section" onSubmit={this.handleSubmit}>
+                    <input style={titleStyle} className="notepad-title-box" type="text" placeholder="TITLE..." name="title" value={this.state.title} onChange={this.handleTitleChange}/>
+                    <textarea style={textAreaStyle} id="notepad-text" placeholder="START TYPING..." name="text" value={this.state.text} onChange={this.handleTextChange}/>
+                    <input type="submit" style={submitStyle} value="SAVE" />
                 </form>
             </div>
 
