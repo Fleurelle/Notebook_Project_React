@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import Navpane from './Components/Navpane';
 import Home from './Components/Home';
 import NotePad from './Container/Notepad'
-import Notes from './Components/Notes';
+import Notes from './Container/Notes'
 import Quotes from './Components/Quotes';
 
 

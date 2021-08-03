@@ -1,4 +1,5 @@
 import React from 'react'
+import Notes from './Notes'
 
 //lined area of notepad
 const textAreaStyle = {
@@ -36,43 +37,67 @@ class NotePad extends React.Component {
     }
 
     //need a handleChange function -to update state based on title and text values
-    handleTitleChange =(event)=>{
+    handleChange =(e) => {
         this.setState({
-            title: event.target.value
+            [e.target.name]:e.target.value
         })
-
     }
 
-    handleTextChange =(event)=>{
-        this.setState({
-            text: event.target.value
-        })
+    // handleTitleChange = (event) => {
+    //     this.setState({
+    //         title: event.target.value
+    //     })
 
-    }
+    // }
+
+    // handleTextChange = (event) => {
+    //     this.setState({
+    //         text: event.target.value
+    //     })
+
+    // }
 
     //submitting the controlled form
-    handleSubmit =(e) => {
-        e.preventDefault() 
+    handleSubmit = (e) => {
+        e.preventDefault()
 
+        //need title and text to be one entity 
         let formData = {
-            title:this.state.title,
-            text:this.state.text
+            title: this.state.title,
+            text: this.state.text
         }
-        
-        let dataArray = this.state.submittedData.concat(formData)
+
+        //now merging them into one array
+        let dataArray = this.state.submittedData.concat(formData) 
         this.setState({
-            submittedData:dataArray
+            submittedData: dataArray
         })
+
+        //need to send this data somewhere
+        fetch('http://localhost:3001/notes', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                title:this.state.title,
+                text: this.state.text
+            }) //.stringify => passing an object then changing it to JSON
+        })
+        .then(res => res.json())
+        .then(this.props.addNote)
     }
+
 
 
     render() {
         return (
             <div className="notepad-main" >
                 <form className="notepad-notetaking-section" onSubmit={this.handleSubmit}>
-                    <input style={titleStyle} className="notepad-title-box" type="text" placeholder="TITLE..." name="title" value={this.state.title} onChange={this.handleTitleChange}/>
-                    <textarea style={textAreaStyle} id="notepad-text" placeholder="START TYPING..." name="text" value={this.state.text} onChange={this.handleTextChange}/>
-                    <input type="submit" style={submitStyle} value="SAVE" />
+                    <input style={titleStyle} className="notepad-title-box" type="text" placeholder="TITLE..." name="title" value={this.state.title} onChange={this.handleChange} />
+                    <textarea style={textAreaStyle} id="notepad-text" placeholder="START TYPING..." name="text" value={this.state.text} onChange={this.handleChange} />
+                    <input type="submit" style={submitStyle} value="Save" />
                 </form>
             </div>
 
