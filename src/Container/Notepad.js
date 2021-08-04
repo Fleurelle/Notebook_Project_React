@@ -39,7 +39,7 @@ class NotePad extends React.Component {
     //need a handleChange function -to update state based on title and text values
     handleChange =(e) => {
         this.setState({
-            [e.target.name]:e.target.value
+            [e.target.name]:e.target.value,
         })
     }
 
@@ -88,7 +88,6 @@ class NotePad extends React.Component {
         .then(res => res.json())
         .then(this.props.addNote)
     }
-
 
 
     render() {
