@@ -19,6 +19,27 @@ const applicationStyle = {
 }
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      notes: []
+    }
+  }
+
+  componentDidMount() {
+    fetch(' http://localhost:3001/notes')
+      .then(res => res.json())
+      .then(notes => this.setState({
+        notes: notes
+      }))
+  }
+
+  addNote = (note) => {
+    this.setState({
+      notes: [...this.state.notes, note]
+    })
+  }
+
   render() {
     return (
       <div style={applicationStyle}>
@@ -29,13 +50,17 @@ class App extends Component {
             <Home />
           </Route>
 
-          <Route path="/Notepad">
-            <NotePad />
-          </Route>
+          <Route path="/Notepad"
+            /* pass in addNote */
+          render ={() => <NotePad addNote={this.addNote}/>}
+          />
+          
 
-          <Route path="/Notes">
-            <Notes />
-          </Route>
+          <Route path="/Notes"
+            /* pass in this.props.note */ 
+            render = {() => <Notes notes={this.state.notes}/>}
+          />
+         
 
           <Route path="/Quotes">
             <Quotes />

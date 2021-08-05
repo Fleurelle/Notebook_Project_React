@@ -1,5 +1,6 @@
 import React from 'react'
 import Notes from './Notes'
+import { withRouter } from 'react-router'
 
 //lined area of notepad
 const textAreaStyle = {
@@ -86,7 +87,11 @@ class NotePad extends React.Component {
             }) //.stringify => passing an object then changing it to JSON
         })
         .then(res => res.json())
-        .then(this.props.addNote)
+        .then(note => {
+            this.props.addNote(note)
+            this.props.history.push("/notes")
+        })
+    
     }
 
 
@@ -104,4 +109,4 @@ class NotePad extends React.Component {
     }
 }
 
-export default NotePad;
+export default withRouter(NotePad);

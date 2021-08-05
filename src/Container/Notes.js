@@ -17,31 +17,9 @@ const deleteBtnStyle = {
     background: 'pink'
 }
 
-class Notes extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            notes: []
-        }
-    }
-
-    componentDidMount() {
-        fetch(' http://localhost:3001/notes')
-            .then(res => res.json())
-            .then(notes => this.setState({
-                notes: notes
-            }))
-    }
-
-    addNote =(note) => {
-        this.setState({
-            notes:[...this.state.notes, note]
-        })
-    }
-    
-
+class Notes extends React.Component {  
     render() {
-        const notes = this.state.notes.map(note => <Note note={note} />)
+        const notes = this.props.notes.map(note => <Note note={note} />)
         return (
             <div>
                 {notes}
